@@ -147,11 +147,11 @@ if(location.href.search('2021_beta') > -1 && location.href.search('kiwi') > -1){
 						<p>
 							題號：<span pid="num"></span><br>
 							答案：<span pid="ans"></span><br>
-							直接在工具列顯示答案：<input type="checkbox" onchange="KS_btn2C(this.checked)">
+							直接在工具列顯示答案：<input type="checkbox" onchange="KS_btn3C(this.checked)">
 						</p>
 					</article>
 				`;
-				if(document.querySelector('[btnId="btn2"]').getAttribute('oa') == 'true'){
+				if(document.querySelector('[btnId="btn3"]').getAttribute('oa') == 'true'){
 					document.querySelector("#KSBox > article > p > input[type=checkbox]").setAttribute('checked', '');
 				}
 			}
@@ -340,12 +340,12 @@ if(location.href.search('2021_beta') > -1 && location.href.search('kiwi') > -1){
 				QV.MyAns[ansx] = QV.OkAns[ansx]
 			}
 		}
-		function KS_btn2C(tf){
+		function KS_btn3C(tf){
 			if(tf){
-				document.querySelector('[btnId="btn2"]').setAttribute('oa', 'true');
+				document.querySelector('[btnId="btn3"]').setAttribute('oa', 'true');
 			}
 			else{
-				document.querySelector('[btnId="btn2"]').setAttribute('oa', 'false')
+				document.querySelector('[btnId="btn3"]').setAttribute('oa', 'false')
 			}
 		}
 		function KS_getAnser(){
@@ -357,7 +357,7 @@ if(location.href.search('2021_beta') > -1 && location.href.search('kiwi') > -1){
 					return false;
 				}
 			}
-			const btn2 = document.querySelector('[btnId="btn2"]');
+			const btn3 = document.querySelector('[btnId="btn3"]');
 			var kwa = "無法辨識";
 			if (dqic('KW_QType') > 0) {
 				if (dqic('KW_QType') < 6) {
@@ -375,22 +375,22 @@ if(location.href.search('2021_beta') > -1 && location.href.search('kiwi') > -1){
 					kwa.shift()
 				}
 			}
-			if(btn2.getAttribute('kscc') == 'true'){
-				if(btn2.getAttribute('oa') == 'true'){
-					btn2.style.backgroundColor = '#ffffff';
-					btn2.style.backgroundImage = 'none';
-					btn2.innerText = kwa;
+			if(btn3.getAttribute('kscc') == 'true'){
+				if(btn3.getAttribute('oa') == 'true'){
+					btn3.style.backgroundColor = '#ffffff';
+					btn3.style.backgroundImage = 'none';
+					btn3.innerText = kwa;
 				}
 				else{
-					btn2.style.backgroundColor = '#00000000';
-					btn2.style.backgroundImage = "url('https://maohupi.riarock.com/web/tool/kiwiStation/img/btn2.png')";
-					btn2.innerText = '';
+					btn3.style.backgroundColor = '#00000000';
+					btn3.style.backgroundImage = "url('https://maohupi.riarock.com/web/tool/kiwiStation/img/btn3.png')";
+					btn3.innerText = '';
 				}
 			}
 			else{
-				btn2.style.backgroundColor = '#00000044';
-				btn2.style.backgroundImage = "url('https://maohupi.riarock.com/web/tool/kiwiStation/img/btn2.png')";
-				btn2.innerText = '';
+				btn3.style.backgroundColor = '#00000044';
+				btn3.style.backgroundImage = "url('https://maohupi.riarock.com/web/tool/kiwiStation/img/btn3.png')";
+				btn3.innerText = '';
 			}
 			if(document.querySelector('[pid="ans"]')){
 				document.querySelector('[pid="ans"]').innerText = kwa;
@@ -633,3 +633,7 @@ if(location.href.search('2021_beta') > -1 && location.href.search('kiwi') > -1){
 	}
 	reSizer(100*vw(), 100*vh());
 }
+//()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()
+/*
+UPDATE score1 SET QuizName1='42m',QzTNo1='20',CorrectNo1='20',Qztime1='09/07/2021  17:03:17',posted1='09/07/2021  17:03:35',anstime1='',QuizName2='41m',QzTNo2='20',CorrectNo2='20',Qztime2='09/07/2021  16:56:14',posted2='09/07/2021  17:02:26',anstime2='',QuizName3='42h',QzTNo3='20',CorrectNo3='20',Qztime3='09/07/2021  16:51:04',posted3='09/07/2021  16:51:08',anstime3='',QuizName4='42h',QzTNo4='20',CorrectNo4='20',Qztime4='08/07/2021  22:23:13',posted4='08/07/2021  22:33:08',anstime4='08/07/2021  22:33:20',QuizName5='41',QzTNo5='20',CorrectNo5='20',Qztime5='08/07/2021  22:22:53',posted5='08/07/2021  22:22:56',anstime5='',QuizName6='41',QzTNo6='20',CorrectNo6='20',Qztime6='08/07/2021  22:22:53',posted6='08/07/2021  22:22:54',anstime6='',QuizName7='44h',QzTNo7='20',CorrectNo7='20',Qztime7='08/07/2021  22:22:01',posted7='08/07/2021  22:22:29',anstime7='',QuizName8='44h',QzTNo8='20',CorrectNo8='20',Qztime8='08/07/2021  22:22:01',posted8='08/07/2021  22:22:27',anstime8='',QuizName9='44h',QzTNo9='20',CorrectNo9='20',Qztime9='08/07/2021  22:22:01',posted9='08/07/2021  22:22:25',anstime9='',QuizName10='44h',QzTNo10='20',CorrectNo10='20',Qztime10='08/07/2021  22:22:01',posted10='08/07/2021  22:22:23',anstime10='',QuizName11='44h',QzTNo11='20',CorrectNo11='20',Qztime11='08/07/2021  22:22:01',posted11='08/07/2021  22:22:21',anstime11='',QuizName12='44h',QzTNo12='20',CorrectNo12='20',Qztime12='08/07/2021  22:22:01',posted12='08/07/2021  22:22:19',anstime12='',QuizName13='44h',QzTNo13='20',CorrectNo13='20',Qztime13='08/07/2021  22:22:01',posted13='08/07/2021  22:22:17',anstime13='',QuizName14='44h',QzTNo14='20',CorrectNo14='20',Qztime14='08/07/2021  22:22:01',posted14='08/07/2021  22:22:15',anstime14='',QuizName15='44h',QzTNo15='20',CorrectNo15='20',Qztime15='08/07/2021  22:22:01',posted15='08/07/2021  22:22:13',anstime15='',QuizName16='44h',QzTNo16='20',CorrectNo16='20',Qztime16='08/07/2021  22:22:01',posted16='08/07/2021  22:22:11',anstime16='',QuizName17='44h',QzTNo17='20',CorrectNo17='20',Qztime17='08/07/2021  22:22:01',posted17='08/07/2021  22:22:09',anstime17='',QuizName18='44h',QzTNo18='20',CorrectNo18='20',Qztime18='08/07/2021  22:22:01',posted18='08/07/2021  22:22:07',anstime18='',QuizName19='44h',QzTNo19='20',CorrectNo19='20',Qztime19='08/07/2021  22:22:01',posted19='08/07/2021  22:22:05',anstime19='',QuizName20='44h',QzTNo20='20',CorrectNo20='20',Qztime20='08/07/2021  22:22:01',posted20='08/07/2021  22:22:03',anstime20='',QuizName21='43h',QzTNo21='20',CorrectNo21='20',Qztime21='08/07/2021  22:20:01',posted21='08/07/2021  22:20:23',anstime21='',QuizName22='42h',QzTNo22='20',CorrectNo22='20',Qztime22='08/07/2021  22:18:30',posted22='08/07/2021  22:20:01',anstime22='',QuizName23='41h',QzTNo23='20',CorrectNo23='19',Qztime23='08/07/2021  22:12:52',posted23='08/07/2021  22:18:16',anstime23='08/07/2021  22:19:30',QuizName24='44h',QzTNo24='20',CorrectNo24='20',Qztime24='01/07/2021  07:53:33',posted24='01/07/2021  08:04:14',anstime24='',QuizName25='43h',QzTNo25='20',CorrectNo25='20',Qztime25='01/07/2021  07:53:30',posted25='01/07/2021  08:04:05',anstime25='',QuizName26='42h',QzTNo26='20',CorrectNo26='20',Qztime26='01/07/2021  07:25:41',posted26='01/07/2021  08:03:56',anstime26='',QuizName27='41h',QzTNo27='20',CorrectNo27='20',Qztime27='01/07/2021  07:32:43',posted27='01/07/2021  08:03:34',anstime27='',QuizName28='512h',QzTNo28='20',CorrectNo28='20',Qztime28='19/06/2021  15:11:40',posted28='19/06/2021  15:37:37',anstime28='',QuizName29='512h',QzTNo29='20',CorrectNo29='20',Qztime29='19/06/2021  15:20:51',posted29='19/06/2021  15:37:00',anstime29='',QuizName30='512h',QzTNo30='20',CorrectNo30='20',Qztime30='19/06/2021  14:58:17',posted30='19/06/2021  15:35:59',anstime30='',QuizName31='512h',QzTNo31='20',CorrectNo31='20',Qztime31='19/06/2021  14:52:57',posted31='19/06/2021  15:34:59',anstime31='',QuizName32='512h',QzTNo32='20',CorrectNo32='20',Qztime32='19/06/2021  15:15:22',posted32='19/06/2021  15:33:59',anstime32='',QuizName33='512h',QzTNo33='20',CorrectNo33='20',Qztime33='19/06/2021  14:50:20',posted33='19/06/2021  15:33:27',anstime33='',QuizName34='512h',QzTNo34='20',CorrectNo34='20',Qztime34='19/06/2021  15:14:32',posted34='19/06/2021  15:32:00',anstime34='',QuizName35='512h',QzTNo35='20',CorrectNo35='20',Qztime35='19/06/2021  14:49:25',posted35='19/06/2021  15:30:59',anstime35='',QuizName36='512h',QzTNo36='20',CorrectNo36='20',Qztime36='19/06/2021  15:06:57',posted36='19/06/2021  15:29:59',anstime36='',QuizName37='512h',QzTNo37='20',CorrectNo37='20',Qztime37='19/06/2021  14:53:11',posted37='19/06/2021  15:29:28',anstime37='',QuizName38='512h',QzTNo38='20',CorrectNo38='20',Qztime38='19/06/2021  15:05:51',posted38='19/06/2021  15:27:59',anstime38='',QuizName39='512h',QzTNo39='20',CorrectNo39='20',Qztime39='19/06/2021  15:01:25',posted39='19/06/2021  15:26:59',anstime39='',QuizName40='512h',QzTNo40='20',CorrectNo40='20',Qztime40='19/06/2021  14:50:30',posted40='19/06/2021  15:26:00',anstime40='' WHERE userID = (SELECT userID FROM user WHERE useraccount = '帳號');
+*/
