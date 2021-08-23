@@ -1,0 +1,27 @@
+{
+  "name": "kiwiStation",
+  "description": "這是貓虎皮為因應網路奇異國2021beta版而推出的多功能網奇外掛!",
+  "version": "1.0.0",
+  "manifest_version": 2,
+  "icons": {
+    "128": "/img/kiwiStation.png", 
+    "16": "/img/kiwiStation.png",
+    "48": "/img/kiwiStation.png"
+  },
+  "content_scripts": [ {
+    "all_frames": false,
+    "js": [ "kiwiStation.js" ],
+    "matches": [ "http://*/*", "https://*/*" ],
+    "run_at": "document_end"
+  } ],
+  "browser_action": {
+    "default_icon": "/img/kiwiStation.png",
+    "default_title": "加入kiwiStation",
+    "default_popup": "kiwiStationPop.html"
+  },
+  "homepage_url": "https://sites.google.com/view/kiwistation/%E9%A6%96%E9%A0%81?authuser=0",
+  "incognito": "spanning",
+  "omnibox": {
+     "keyword": "kiwi"
+  }
+}
