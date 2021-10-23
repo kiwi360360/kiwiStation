@@ -124,7 +124,9 @@ if(location.href.search('2021_beta') > -1 && location.href.search('kiwi') > -1){
 					<h1>帳號資訊</h1>
 					<hr>
 					<article>
-						目前用戶：<span pid="userNow"></span>
+						目前用戶：<span pid="userNow"></span><br>
+						本月積分：數寶 <span pid="m數寶"></span>, 銜接 <span pid="m銜接"></span><br>
+						學期積分：數寶 <span pid="y數寶"></span>, 銜接 <span pid="y銜接"></span></span>
 						<hr>
 						作答紀錄：
 						<div pid="pGB" style="overflow: auto; display: grid; grid-gap: 0.5vw; grid-template-columns: auto auto auto auto auto auto;">
@@ -317,7 +319,8 @@ if(location.href.search('2021_beta') > -1 && location.href.search('kiwi') > -1){
 			let user = window.useraccount ? window.useraccount : ${KSNowUser};
 			KS_phpSend(\`https://nssh.kiwi.com.tw/2021_beta/Score/ScoreList.php?U=\$\{user\}\`, '', function(){
 				if (this.readyState==4){
-					eval('KS_PointScore = ' + this.responseText.split('<script>var score = ')[1].split('</script>')[0].split('score').join('KS_PointScore'));
+					eval('KS_PointScore = ' + this.responseText.split('<script>var score = ')[1].split('</script>')[0].split('score').join('KS_PointScore') +';');
+					KS_PointScore['point'] = {'m數寶':point, 'y數寶':T_point, 'm銜接':p_m, 'y銜接':p_t};
 					if(document.querySelector('[pid="pGB"]')){
 						let pGB = document.querySelector('[pid="pGB"]');
 						let pA = ['name', 'qztno', 'correctno', 'qztime', 'posted'];
@@ -332,9 +335,15 @@ if(location.href.search('2021_beta') > -1 && location.href.search('kiwi') > -1){
 							}
 						}
 					}
+					['m數寶', 'y數寶', 'm銜接', 'y銜接'].forEach(pid => {
+						if(document.querySelector(\`[pid=\$\{pid\}]\`)){
+							document.querySelector(\`[pid=\$\{pid\}]\`).innerText = KS_PointScore['point'][pid];
+						}
+					});
 				}
 			});
 		}
+		KS_getPoint();
 		function KS_ansRobot() {
 			for (ansx = 1; ansx <= QV.Qtotal; ansx += 1) {
 				QV.MyAns[ansx] = QV.OkAns[ansx]
