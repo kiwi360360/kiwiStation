@@ -1,25 +1,4 @@
-// document.body.oncontextmenu = () => {self.event.returnValue=false};
-// if(uKS === false){
-//     document.body.innerHTML = `
-//         <h1>登入kiwiStation</h1>
-//         <hr>
-//         <div id="gridDiv">
-//             <p id="uIDP" class="inputP">帳號：</p>
-//             <input type="text" id="uID">
-//             <p id="uPWDP" class="inputP">密碼：</p>
-//             <input type="password" id="uPWD">
-//             <button id="oldKS" class="inputB">登入</button>
-//             <button id="newKS" class="inputB">註冊</button>
-//         </div>
-//     `;
-// }
-// else{
-//     document.body.innerHTML = `
-//         <h1>kiwiStation</h1>
-//         <hr>
-//         <h4>${uKS['id']}您好！</h4>
-//     `;
-// }
+document.body.oncontextmenu = () => {self.event.returnValue=false};
 document.body.innerHTML = `
     <h1>加入kiwiStation</h1>
     <hr>
