@@ -124,7 +124,8 @@ if(location.href.search('2021_beta') > -1 && location.href.search('kiwi') > -1){
 					<h1>帳號資訊</h1>
 					<hr>
 					<article>
-						目前用戶：<span pid="userNow"></span><br>
+						目標用戶：<input type="text" value="${KSDiv.getAttribute('sendTo')}" onchange="KSDiv.setAttribute('sendTo', this.value);KS_getPoint();"><br>
+						<!-- 目前用戶：<span pid="userNow"></span><br> -->
 						本月積分：數寶 <span pid="m數寶"></span>, 銜接 <span pid="m銜接"></span><br>
 						學期積分：數寶 <span pid="y數寶"></span>, 銜接 <span pid="y銜接"></span></span>
 						<hr>
@@ -175,6 +176,7 @@ if(location.href.search('2021_beta') > -1 && location.href.search('kiwi') > -1){
 					<hr>
 					<article>
 						<p>
+							目標用戶：<input type="text" value="${KSDiv.getAttribute('sendTo')}" onchange="KSDiv.setAttribute('sendTo', this.value)"><br>
 							題目總數：<input type="text" value="${KSDiv.getAttribute('qTotal')}" onchange="KSDiv.setAttribute('qTotal', this.value)"><br>
 							作答題數：<input type="text" value="${KSDiv.getAttribute('aTotal')}" onchange="KSDiv.setAttribute('aTotal', this.value)"><br>
 							<button onclick="KS_sendA()">發送紀錄</button><br>
@@ -264,7 +266,8 @@ if(location.href.search('2021_beta') > -1 && location.href.search('kiwi') > -1){
 				}
 			}
 			xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-			xmlhttp.send("Qname="+KSDiv.getAttribute('Q')+"&Qtotal="+KSDiv.getAttribute('qTotal')+"&CorrectNo="+KSDiv.getAttribute('aTotal')+"&LevelNum="+GV.userIOKey[0][1]+"&classnum="+KSDiv.getAttribute('M')+"&R="+KSDiv.getAttribute('R')+"&U="+KSDiv.getAttribute('U'));
+			xmlhttp.send("Qname="+KSDiv.getAttribute('Q')+"&Qtotal="+KSDiv.getAttribute('qTotal')+"&CorrectNo="+KSDiv.getAttribute('aTotal')+"&LevelNum="+GV.userIOKey[0][1]+"&classnum="+KSDiv.getAttribute('M')+"&R="+KSDiv.getAttribute('R')+"&U="+KSDiv.getAttribute('sendTo'));
+			// xmlhttp.send("Qname="+KSDiv.getAttribute('Q')+"&Qtotal="+KSDiv.getAttribute('qTotal')+"&CorrectNo="+KSDiv.getAttribute('aTotal')+"&LevelNum="+GV.userIOKey[0][1]+"&classnum="+KSDiv.getAttribute('M')+"&R="+KSDiv.getAttribute('R')+"&U="+KSDiv.getAttribute('U'));
 		}
 		function KS_sendB(){
 			var xmlhttp = new XMLHttpRequest();				
@@ -281,7 +284,8 @@ if(location.href.search('2021_beta') > -1 && location.href.search('kiwi') > -1){
 				}
 			}
 			xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-			xmlhttp.send("Qname="+KSDiv.getAttribute('Q')+"&Qtotal="+KSDiv.getAttribute('qTotal')+"&CorrectNo="+KSDiv.getAttribute('aTotal')+"&LevelNum="+GV.userIOKey[0][1]+"&classnum="+KSDiv.getAttribute('M')+"&R="+KSDiv.getAttribute('R')+"&U="+KSDiv.getAttribute('U'));
+			xmlhttp.send("Qname="+KSDiv.getAttribute('Q')+"&Qtotal="+KSDiv.getAttribute('qTotal')+"&CorrectNo="+KSDiv.getAttribute('aTotal')+"&LevelNum="+GV.userIOKey[0][1]+"&classnum="+KSDiv.getAttribute('M')+"&R="+KSDiv.getAttribute('R')+"&U="+KSDiv.getAttribute('sendTo'));
+			// xmlhttp.send("Qname="+KSDiv.getAttribute('Q')+"&Qtotal="+KSDiv.getAttribute('qTotal')+"&CorrectNo="+KSDiv.getAttribute('aTotal')+"&LevelNum="+GV.userIOKey[0][1]+"&classnum="+KSDiv.getAttribute('M')+"&R="+KSDiv.getAttribute('R')+"&U="+KSDiv.getAttribute('U'));
 		}
 		function KS_usersOutput(){
 			let blob = new Blob([JSON.stringify(KS_Users)], {type : 'application/json'});
@@ -315,14 +319,24 @@ if(location.href.search('2021_beta') > -1 && location.href.search('kiwi') > -1){
 			xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 			xmlhttp.send(ksv);
 		}
+		KSDiv.setAttribute('sendTo', window.useraccount ? window.useraccount : ${KSNowUser});
 		function KS_getPoint(){
-			let user = window.useraccount ? window.useraccount : ${KSNowUser};
+			let user = KSDiv.getAttribute('sendTo');
+			// let user = window.useraccount ? window.useraccount : ${KSNowUser};
 			KS_phpSend(\`https://nssh.kiwi.com.tw/2021_beta/Score/ScoreList.php?U=\$\{user\}\`, '', function(){
 				if (this.readyState==4){
 					eval('KS_PointScore = ' + this.responseText.split('<script>var score = ')[1].split('</script>')[0].split('score').join('KS_PointScore') +';');
 					KS_PointScore['point'] = {'m數寶':point, 'y數寶':T_point, 'm銜接':p_m, 'y銜接':p_t};
 					if(document.querySelector('[pid="pGB"]')){
 						let pGB = document.querySelector('[pid="pGB"]');
+						pGB.innerHTML = \`
+							<span>編號</span>	
+							<span>名稱</span>
+							<span>題數</span>
+							<span>答對</span>
+							<span>開始</span>
+							<span>結束</span>
+						\`;
 						let pA = ['name', 'qztno', 'correctno', 'qztime', 'posted'];
 						for(let i = 0; i < KS_PointScore.name.length; i++){
 							let nGridBox = document.createElement('span');
