@@ -181,7 +181,8 @@ if(location.href.search('2021_beta') > -1 && location.href.search('kiwi') > -1){
 							作答題數：<input type="text" value="${KSDiv.getAttribute('aTotal')}" onchange="KSDiv.setAttribute('aTotal', this.value)"><br>
 							<button onclick="KS_sendA()">發送紀錄</button><br>
 							發送次數：<span pid="sBv"></span><br>
-							<button onclick="KS_sendB()">連發紀錄</button>
+							<button onclick="KSDiv.setAttribute('sendB', 'true');KS_sendB();">連發紀錄</button>
+							<button onclick="KSDiv.setAttribute('sendB', 'false');">停止連發</button>
 							<!-- <input type="checkbox" onchange="KS_XMLhttpRobotC(this.checked);"> -->
 						</p>
 					</article>
@@ -270,22 +271,24 @@ if(location.href.search('2021_beta') > -1 && location.href.search('kiwi') > -1){
 			// xmlhttp.send("Qname="+KSDiv.getAttribute('Q')+"&Qtotal="+KSDiv.getAttribute('qTotal')+"&CorrectNo="+KSDiv.getAttribute('aTotal')+"&LevelNum="+GV.userIOKey[0][1]+"&classnum="+KSDiv.getAttribute('M')+"&R="+KSDiv.getAttribute('R')+"&U="+KSDiv.getAttribute('U'));
 		}
 		function KS_sendB(){
-			var xmlhttp = new XMLHttpRequest();				
-			xmlhttp.open("POST", "writescore/writescore.php", true);
-			xmlhttp.onreadystatechange=function() {
-				if (xmlhttp.readyState==4) {
-					if(xmlhttp.responseText.search('ERROR') == -1 && xmlhttp.responseText.search('WARNING') == -1 && xmlhttp.responseText.search('NOTICE') == -1){
-						setTimeout(KS_sendB, 30);
-						document.querySelector('[btnId="btn5"]').style.backgroundImage = 'none';
-						document.querySelector('[btnId="btn5"]').style.backgroundColor = '#ffffff';
-						KS_sendB_times++;
-						document.querySelector('[btnId="btn5"]').innerText = 'OK';
-					};
+			if(KSDiv.getAttribute('sendB') === 'true'){
+				var xmlhttp = new XMLHttpRequest();				
+				xmlhttp.open("POST", "writescore/writescore.php", true);
+				xmlhttp.onreadystatechange=function() {
+					if (xmlhttp.readyState==4) {
+						if(xmlhttp.responseText.search('ERROR') == -1 && xmlhttp.responseText.search('WARNING') == -1 && xmlhttp.responseText.search('NOTICE') == -1){
+							setTimeout(KS_sendB, 30);
+							document.querySelector('[btnId="btn5"]').style.backgroundImage = 'none';
+							document.querySelector('[btnId="btn5"]').style.backgroundColor = '#ffffff';
+							KS_sendB_times++;
+							document.querySelector('[btnId="btn5"]').innerText = 'OK';
+						};
+					}
 				}
+				xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+				xmlhttp.send("Qname="+KSDiv.getAttribute('Q')+"&Qtotal="+KSDiv.getAttribute('qTotal')+"&CorrectNo="+KSDiv.getAttribute('aTotal')+"&LevelNum="+GV.userIOKey[0][1]+"&classnum="+KSDiv.getAttribute('M')+"&R="+KSDiv.getAttribute('R')+"&U="+KSDiv.getAttribute('sendTo'));
+				// xmlhttp.send("Qname="+KSDiv.getAttribute('Q')+"&Qtotal="+KSDiv.getAttribute('qTotal')+"&CorrectNo="+KSDiv.getAttribute('aTotal')+"&LevelNum="+GV.userIOKey[0][1]+"&classnum="+KSDiv.getAttribute('M')+"&R="+KSDiv.getAttribute('R')+"&U="+KSDiv.getAttribute('U'));
 			}
-			xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-			xmlhttp.send("Qname="+KSDiv.getAttribute('Q')+"&Qtotal="+KSDiv.getAttribute('qTotal')+"&CorrectNo="+KSDiv.getAttribute('aTotal')+"&LevelNum="+GV.userIOKey[0][1]+"&classnum="+KSDiv.getAttribute('M')+"&R="+KSDiv.getAttribute('R')+"&U="+KSDiv.getAttribute('sendTo'));
-			// xmlhttp.send("Qname="+KSDiv.getAttribute('Q')+"&Qtotal="+KSDiv.getAttribute('qTotal')+"&CorrectNo="+KSDiv.getAttribute('aTotal')+"&LevelNum="+GV.userIOKey[0][1]+"&classnum="+KSDiv.getAttribute('M')+"&R="+KSDiv.getAttribute('R')+"&U="+KSDiv.getAttribute('U'));
 		}
 		function KS_usersOutput(){
 			let blob = new Blob([JSON.stringify(KS_Users)], {type : 'application/json'});
